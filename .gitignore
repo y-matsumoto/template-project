@@ -1,0 +1,50 @@
+# commmon
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+
+# built application
+/*/build/
+
+# crashlytics configuations
+com_crashlytics_export_strings.xml
+
+# local configuration
+local.properties
+
+# gradle generated
+.gradle/
+
+# signing files
+.signing/
+
+# user specific configurations
+.idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+*.iml
+*.ipr
+*.iws
+
+# keystore
+keystore/
+
+# os specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

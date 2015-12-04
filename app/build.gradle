@@ -1,0 +1,79 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+def VERSION_CODE = 1
+def VERSION_NAME = "1.0.0"
+def PACKAGE_NAME = "com.example.templete"
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId PACKAGE_NAME
+        minSdkVersion 18
+        targetSdkVersion 22
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../keystore/debug.keystore")
+        }
+        release {
+            storeFile file("../keystore/release.keystore")
+            storePassword "hogehoge"
+            keyAlias "hogehoge"
+            keyPassword "hogehoge"
+        }
+    }
+
+    productFlavors {
+        develop {
+            versionName VERSION_NAME + "-develop"
+        }
+        staging {
+            versionName VERSION_NAME + "-staging"
+        }
+        product {
+            versionName VERSION_NAME + "-product"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        if (variant.buildType.name.equals("debug") || variant.buildType.name.equals("release")) {
+            variant.outputs.each { output ->
+                if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+                    def date = new SimpleDateFormat("yyyyMMdd").format new Date()
+                    def newName = "${toSimplePackageName(PACKAGE_NAME)}_v${versionName}_r${versionCode}_${date}.apk"
+                    output.outputFile = new File(output.outputFile.parent, newName)
+                }
+            }
+        }
+    }
+
+}
+
+def toSimplePackageName(def name){
+    name.substring name.lastIndexOf(".") + 1
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+}
