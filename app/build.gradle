@@ -67,7 +67,7 @@ android {
 
 }
 
-def toSimplePackageName(def name){
+def toSimplePackageName(name){
     name.substring name.lastIndexOf(".") + 1
 }
 
